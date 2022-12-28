@@ -12,14 +12,21 @@ jobs:
     steps:
     # uses GitHub's checkout action to checkout code form the master branch
     - uses: actions/checkout@v3
+    
     # sets up .NET Core SDK 7
     - name: Setup .NET Core SDK 7
       uses: actions/setup-dotnet@v3.0.3
       with:
         dotnet-version: 7.0
+        
     # publishes Blazor project to the release-folder
     - name: Publish .NET Core Project
       run: dotnet publish ServiceWorkerBlazorWebAssembly.csproj -c Release -o release
+      
+    # changes the base-tag in index.html from '/' to 'BlazorGitHubPagesDemo' to match GitHub Pages repository subdirectory
+    - name: Change base-tag in index.html from / to ServiceWorkerBlazorWebAssembly
+      run: sed -i 's/<base href="\/" \/>/<base href="\/ServiceWorkerBlazorWebAssembly\/" \/>/g' wwwroot/index.html
+      
     # Commit to GitHub pages
     - name: Commit wwwroot to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
