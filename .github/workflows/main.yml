@@ -3,7 +3,8 @@ name: Deploy to GitHub Pages
 # Run workflow on every push to the master branch
 on:
   push:
-    branches: [ master ]
+    branches: 
+      - master
     
 jobs:
   deploy-to-github-pages:
@@ -11,13 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     # uses GitHub's checkout action to checkout code form the master branch
-    - uses: actions/checkout@v2
+    - name: Checkout 🛎️
+    - uses: actions/checkout@v3
     
-    # sets up .NET Core SDK 6
+    # sets up .NET Core SDK 7
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3.0.3
       with:
-        dotnet-version: 6.0
+        dotnet-version: 7.0
         
     # publishes Blazor project to the release-folder
     - name: Publish .NET Core Project
@@ -28,4 +30,4 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
-        FOLDER: release/wwwroot
+        FOLDER: wwwroot
