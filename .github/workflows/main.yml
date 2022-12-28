@@ -11,19 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     # uses GitHub's checkout action to checkout code form the master branch
-    - name: Checkout
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
     # sets up .NET Core SDK 7
-    - name: Setup .NET Core SDK 7
-      uses: actions/setup-dotnet@v3.0.3
+    - name: Setup .NET Core SDK 6
+      uses: actions/setup-dotnet@v1.6.0
       with:
-        dotnet-version: 7.0
+        dotnet-version: 6.0
     # publishes Blazor project to the release-folder
     - name: Publish .NET Core Project
       run: dotnet publish ServiceWorkerBlazorWebAssembly.csproj -c Release -o release
     # Commit to GitHub pages
     - name: Commit wwwroot to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@4
+      uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
