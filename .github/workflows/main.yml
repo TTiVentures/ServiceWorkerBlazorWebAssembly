@@ -27,6 +27,10 @@ jobs:
     - name: Change base-tag in index.html from / to ServiceWorkerBlazorWebAssembly
       run: sed -i 's/<base href="\/" \/>/<base href="\/ServiceWorkerBlazorWebAssembly\/" \/>/g' wwwroot/index.html
       
+    # copy index.html to 404.html to serve the same file when a file is not found
+    - name: copy index.html to 404.html
+      run: cp wwwroot/index.html wwwroot/404.html
+      
     # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
     - name: Add .nojekyll file
       run: touch wwwroot/.nojekyll
