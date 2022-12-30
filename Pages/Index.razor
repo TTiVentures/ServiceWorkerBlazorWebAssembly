@@ -31,10 +31,29 @@
 <p>If you are seeing NASA-Imagery video (from <a href="https://file-examples.com/index.php/sample-video-files/sample-webm-files-download/">Pixabay</a>), then the service worker has fetched the call and changed the video.</p>
 <hr>
 <br>
+<button @onclick="ShowVideo">Show Hidden Video</button>
+<br>
+@if(availableVideo){
+    <video controls loop muted playsinline poster="" preload>
+        <source src="video/file_example_WEBM_480_900KB.webm" type="video/webm">
+        Your browser does not support the video tag.
+    </video>
+}
+<hr>
+<br>
+
 
 <SurveyPrompt Title="How is Blazor working for you?" />
 
 @code{
+    private bool availableVideo = false;
+
+    private void ShowVideo(){
+        availableVideo = true;
+
+        StateHasChanged();
+    }
+
     protected override void OnInitialized()
     {
 
