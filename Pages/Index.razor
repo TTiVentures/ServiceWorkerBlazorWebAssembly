@@ -1,9 +1,54 @@
 ﻿@page "/"
+@inject IJSRuntime JS
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Service Worker Test</h1>
+<br>
 
-Welcome to your new app.
+<h2>Information:</h2>
+<p>When you load this web page for the first time, you will see the objects included in the index.html file.</p>
+<p>When you reload this web, you will see the objects fetched from the service worker.</p>
+<hr>
+<br>
+
+<h2>Fetching an iframe:</h2>
+<iframe src="/iframe/iframe1.htm" height="100" width="800" title="The iframe fetched"></iframe>
+<hr>
+<br>
+
+<h2>Fetching an image:</h2>
+<img src="/img/image1.png" alt="A simple image">
+<hr>
+<br>
+
+<h2>Fetching a video:</h2>
+<video id="videoTag" controls loop muted playsinline poster="" preload><!-- preload="none" -->
+    <source src="" type="video/webm" id="VideoSource">
+    Your browser does not support the video tag.
+</video>
+<p>If you are seeing the Big Buck Bunny trailer video (from <a href="https://wiki.yoctoproject.org/wiki/File:Big-buck-bunny_trailer.webm">wiki.yoctoproject.org</a>), then the onfetch function was not called and the service worker has not fetched the call.</p>
+<p>If you are seeing NASA-Imagery video (from <a href="https://file-examples.com/index.php/sample-video-files/sample-webm-files-download/">Pixabay</a>), then the service worker has fetched the call and changed the video.</p>
+<hr>
+<br>
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+@code{
+    protected override void OnInitialized()
+    {
+
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+            JS.InvokeVoidAsync("onLoadvideoPage");
+            JS.InvokeVoidAsync("loadServiceWorkerTest");
+        }
+    }
+}
+
+
