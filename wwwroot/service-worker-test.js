@@ -15,7 +15,7 @@ self.addEventListener('fetch', function (event) {
     // Network-first
     if (request.headers.get('Accept').includes('text/html') && request.url.includes('iframe1.htm')) {
       event.respondWith(
-          fetch('/iframe/iframe2.htm').then(function(response){
+          fetch('iframe/iframe2.htm').then(function(response){
             return response;
           })
         );
@@ -33,7 +33,7 @@ self.addEventListener('fetch', function (event) {
     // Offline-first
     if (request.headers.get('Accept').includes('image') && request.url.includes('image1.png')) {
       event.respondWith(
-        fetch('/img/image2.png').then(function(response){
+        fetch('img/image2.png').then(function(response){
           return response;
         })
       );
@@ -43,7 +43,7 @@ self.addEventListener('fetch', function (event) {
     // Offline-first
     if (request.url.includes('big-buck-bunny_trailer.webm')) {
       event.respondWith(
-        fetch(new Request('/video/file_example_WEBM_480_900KB.webm', {
+        fetch(new Request('video/file_example_WEBM_480_900KB.webm', {
           headers: {
             "ServiceWorkerTestHeader": "true",
             "Authorization": "Authorization test"
